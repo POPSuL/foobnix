@@ -14,7 +14,6 @@ from foobnix.gui.controls.playback import PlaybackControls, \
     OrderShuffleControls
 from foobnix.gui.search import SearchControls
 from foobnix.gui.controls.seach_progress import SearchProgress
-from foobnix.gui.infopanel import InfoPanelWidget
 from foobnix.gui.engine.gstreamer import GStreamerEngine
 from foobnix.gui.controls.seekbar import SeekProgressBarControls
 from foobnix.gui.controls.volume import VolumeControls
@@ -24,17 +23,18 @@ from foobnix.preferences.preferences_window import PreferencesWindow
 from foobnix.gui.top import TopWidgets
 from foobnix.eq.eq_controller import EqController
 from foobnix.dm.dm import DM
-from foobnix.gui.controls.movie_area import MovieDrawingArea
 from foobnix.util.single_thread import SingleThread
 from foobnix.gui.perspectives.controller import Controller
 from foobnix.util.localization import foobnix_localization
 from foobnix.gui.service.lastfm_service import LastFmService
 from foobnix.gui.controls.record import RadioRecord
 from foobnix.gui.coverlyrics import CoverLyricsPanel
+from foobnix.gui.plugins.manager import Manager as PluginManager
 from foobnix.util.net_wrapper import NetWrapper
 
 
 foobnix_localization()
+
 
 class FoobnixCore(BaseFoobnixControls):
     def __init__(self, with_dbus=True):
@@ -48,6 +48,8 @@ class FoobnixCore(BaseFoobnixControls):
         self.lastfm_service = LastFmService(self)
 
         self.media_engine = GStreamerEngine(self)
+
+        self.plugin_manager = PluginManager(self)
 
         """elements"""
 

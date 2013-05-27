@@ -481,25 +481,6 @@ class CommonTreeControl(FTreeModel, FControl, FilterTreeControls):
             path = self.model.get_path(iter)
             self.expand_to_path(path)
 
-    def copy_info_to_clipboard(self, mode=False):
-        beans = self.get_selected_beans()
-        if not beans:
-            return
-        clb = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-        if not mode:
-            tracks = [b.tracknumber + ". " + b.title + " (" + b.time + ")"
-                      if (b.tracknumber and b.title and b.time) else b.text for b in beans]
-        else:
-            tracks = []
-            for bean in beans:
-                artist = bean.artist if bean.artist else "Unknown artist"
-                title = bean.title if bean.title else "Unknown title"
-                album = bean.album if bean.album else "Unknown album"
-                tracks.append(artist + " - " + title + " (" + album + ")")
-
-        clb.set_text("\n".join(tracks), -1)
-
-
     def selection_changed(self, callback):
         def on_selection_changed(w):
             paths = self.get_selected_bean_paths()

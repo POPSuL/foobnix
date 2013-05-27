@@ -272,10 +272,9 @@ class PlaylistTreeControl(CommonTreeControl):
                 self.tree_menu.add_item(_('Copy To Search Line'), Gtk.STOCK_COPY,
                                         self.controls.searchPanel.set_search_text, text)
                 self.tree_menu.add_separator()
-                self.tree_menu.add_item(_('Copy №-Title-Time'), Gtk.STOCK_COPY, self.copy_info_to_clipboard)
-                self.tree_menu.add_item(_('Copy Artist-Title-Album'), Gtk.STOCK_COPY,
-                                        self.copy_info_to_clipboard, True)
-                self.tree_menu.add_separator()
+
+                self.controls.plugin_manager.get_event_dispatcher().emit("playlist-menu-extend", self.tree_menu, self)
+
                 self.tree_menu.add_item(_('Love This Track(s) by Last.fm'), None,
                                         self.controls.love_this_tracks, self.get_all_selected_beans())
 
